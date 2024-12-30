@@ -40,7 +40,7 @@ const Events: React.FC = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        "http://localhost:6789/api/v1/export/users/excel", // Backend API to export all users to Excel
+        "https://nci25.moderncollegegk.in/api/v1/export/users/excel", // Backend API to export all users to Excel
         { responseType: "blob" } // Set the response type to blob for downloading
       );
 
@@ -70,7 +70,7 @@ const Events: React.FC = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        `http://localhost:6789/api/v1/exportEventToExcel?eventName=${selectedEvent}`, // Backend API to export event-specific users to Excel
+        `https://nci25.moderncollegegk.in/api/v1/exportEventToExcel?eventName=${selectedEvent}`, // Backend API to export event-specific users to Excel
         { responseType: "blob" } // Set the response type to blob for downloading
       );
 

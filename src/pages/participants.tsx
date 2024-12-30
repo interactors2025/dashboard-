@@ -46,7 +46,7 @@ const Participants: React.FC = () => {
     const fetchParticipants = async () => {
       setLoading(true);
       try {
-        const response = await axios.get("http://localhost:6789/api/v1/users"); // Your backend API to fetch participants
+        const response = await axios.get("https://nci25.moderncollegegk.in/api/v1/users"); // Your backend API to fetch participants
         console.log(response.data.payload.users);
         setParticipants(response.data.payload.users); // Set participants data
       } catch (error) {
