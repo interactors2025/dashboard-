@@ -47,7 +47,7 @@ const Teachers: React.FC = () => {
     const fetchTeachers = async () => {
       setLoading(true);
       try {
-        const response = await axios.get("http://localhost:6789/api/v1/staff"); // Your backend API to fetch teachers
+        const response = await axios.get("https://nci25.moderncollegegk.in/api/v1/staff"); // Your backend API to fetch teachers
        
         setTeachers(response.data.payload.Staff); // Set teachers data
       } catch (error) {
