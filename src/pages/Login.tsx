@@ -22,11 +22,15 @@ const Login = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(credentials),
       });
+      if (!response.ok) {
+        const data = await response.json();
+        setError(data.message)
+      }
 
       if (response.ok) {
        const data = await response.json();
+       
        const {token} = data.payload.User
-       console.log(token)
         login(token);
         navigate('/');
       } else {

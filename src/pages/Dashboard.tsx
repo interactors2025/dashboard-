@@ -123,6 +123,10 @@ const Dashboard: React.FC = () => {
           : "https://nci25.moderncollegegk.in/api/v1/searchByMobileStaff";
       const response = await axios.get(`${endpoint}?mobile=${searchQuery}`);
 
+      if (response.status === 404) {
+        setError(response.data.message || "An error occurred");
+      }
+
       if (response.data.payload.user) {
         setSearchResults([response.data.payload.user]);
       } else if (response.data.payload.staff) {
