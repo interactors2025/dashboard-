@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { SelectChangeEvent } from '@mui/material';
 import {
   Container,
   Typography,
-  Box,
   Grid,
   Card,
   CardContent,
@@ -19,8 +19,21 @@ import {
 } from "@mui/material";
 import axios from "axios";
 
+interface Participant {
+  firstName: string;
+  lastName: string;
+  collegeName: string;
+  Token: string;
+  mobile: string;
+  email: string;
+  country: string;
+  state: string;
+  createdAt: string;
+  Image: string;
+}
+
 const Participants: React.FC = () => {
-  const [participants, setParticipants] = useState<any[]>([]); // List of participants
+  const [participants, setParticipants] = useState<Participant[]>([]); // List of participants
   const [loading, setLoading] = useState<boolean>(false); // Loading state
   const [error, setError] = useState<string>(""); // Error handling
   const [page, setPage] = useState<number>(0); // Pagination: current page
@@ -36,9 +49,9 @@ const Participants: React.FC = () => {
         const response = await axios.get("http://localhost:6789/api/v1/users"); // Your backend API to fetch participants
         console.log(response.data.payload.users);
         setParticipants(response.data.payload.users); // Set participants data
-      } catch (error: any) {
+      } catch (error) {
+        console.error(error);
         const errorMessage =
-          error?.response?.data?.message ||
           "Error fetching participants data. Please try again later.";
         setError(errorMessage); // Show error message
       } finally {
@@ -49,21 +62,17 @@ const Participants: React.FC = () => {
   }, []);
 
   // Handle page change in pagination
-  const handleChangePage = (
-    event: React.MouseEvent<HTMLButtonElement> | null,
-    newPage: number
-  ) => {
+  const handleChangePage = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, newPage: number) => {
     setPage(newPage);
   };
 
   // Handle rows per page change in pagination
   const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement>
+    event: SelectChangeEvent<string> // Use string type for event.target.value
   ) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
+    setRowsPerPage(parseInt(event.target.value, 10)); // Parsing the value to a number
     setPage(0);
   };
-
   // Open image dialog
   const handleOpenImageDialog = (imageUrl: string) => {
     setSelectedImage(imageUrl);

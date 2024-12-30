@@ -1,10 +1,10 @@
-import React from 'react';
+
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './index.css';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import { AuthProvider } from './context/AuthContext';
-import ProtectedRoute from './components/ProtectedRoute';
+import ProtectedRoute from './components/protectedRoute';
 import Events from './pages/Event';
 import Sidebar from './pages/Sidebar';
 import Participants from './pages/participants';

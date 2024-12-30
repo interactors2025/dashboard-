@@ -31,7 +31,7 @@ const Attendance: React.FC = () => {
         setError(data.message || 'Login failed');
       }
     } catch (err) {
-        
+      console.error(err);
       setError('An error occurred, please try again.');
     }
   };

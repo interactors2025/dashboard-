@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { SelectChangeEvent } from "@mui/material";
 import {
   Container,
   Typography,
@@ -31,10 +32,10 @@ const Events: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false); // Loading state
   const [error, setError] = useState<string>(""); // Error handling
 
-  const handleEventChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setSelectedEvent(event.target.value as string);
+  const handleEventChange = (event: SelectChangeEvent<string>) => {
+    setSelectedEvent(event.target.value);
   };
-
+  
   const handleDownloadAll = async () => {
     setLoading(true);
     try {
@@ -51,8 +52,9 @@ const Events: React.FC = () => {
       document.body.appendChild(link);
       link.click(); // Trigger the download
       document.body.removeChild(link);
-    } catch (error: any) {
-      const errorMessage = error?.response?.data?.message || "Error downloading all data. Please try again later.";
+    } catch (error) {
+      console.log(error);
+      const errorMessage =  "Error downloading all data. Please try again later.";
       setError(errorMessage); // Display backend error message
     } finally {
       setLoading(false);
@@ -80,8 +82,9 @@ const Events: React.FC = () => {
       document.body.appendChild(link);
       link.click(); // Trigger the download
       document.body.removeChild(link);
-    } catch (error: any) {
-      const errorMessage = error?.response?.data?.message || "Error downloading event data. Please try again later.";
+    } catch (error) {
+      console.log(error);
+      const errorMessage = "Error downloading event data. Please try again later.";
       setError(errorMessage); // Display backend error message
     } finally {
       setLoading(false);

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { SelectChangeEvent } from "@mui/material";
 import Sidebar from "./Sidebar";
 import {
   Container,
@@ -39,9 +40,13 @@ interface Staff {
   mobile: string;
   createdAt: string;
 }
+interface events{
+  event : string;
+  participants: number
+}
 
 const Dashboard: React.FC = () => {
-  const [events, setEvents] = useState<any[]>([]);
+  const [events, setEvents] = useState<events []>([]);
   const [staffCount, setStaffCount] = useState<number>(0);
   const [users, setUsers] = useState<User[]>([]);
   const [staff, setStaff] = useState<Staff[]>([]);
@@ -103,11 +108,10 @@ const Dashboard: React.FC = () => {
     setOpenSearch(false);
   };
 
-  const handleSearchTypeChange = (
-    event: React.ChangeEvent<{ value: unknown }>
-  ) => {
+  const handleSearchTypeChange = (event: SelectChangeEvent<"student" | "staff">) => {
     setSearchType(event.target.value as "student" | "staff");
   };
+
   const handleSnackbarClose = () => {
     setError("");
   };

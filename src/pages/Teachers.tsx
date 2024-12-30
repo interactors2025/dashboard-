@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import {
   Container,
   Typography,
-  Box,
+
   Grid,
   Card,
   CardContent,
@@ -19,8 +19,22 @@ import {
 } from "@mui/material";
 import axios from "axios";
 
+
+interface teachers{
+  firstName: string;
+  lastName: string;
+  collegeName: string;
+  Token: string;
+  mobile: string;
+  email: string;
+  country: string;
+  state: string;
+  createdAt: string;
+  Image: string;
+}
+
 const Teachers: React.FC = () => {
-  const [teachers, setTeachers] = useState<any[]>([]); // List of teachers
+  const [teachers, setTeachers] = useState<teachers[]>([]); // List of teachers
   const [loading, setLoading] = useState<boolean>(false); // Loading state
   const [error, setError] = useState<string>(""); // Error handling
   const [page, setPage] = useState<number>(0); // Pagination: current page
@@ -36,8 +50,9 @@ const Teachers: React.FC = () => {
         const response = await axios.get("http://localhost:6789/api/v1/staff"); // Your backend API to fetch teachers
        
         setTeachers(response.data.payload.Staff); // Set teachers data
-      } catch (error: any) {
-        const errorMessage = error?.response?.data?.message || "Error fetching teachers data. Please try again later.";
+      } catch (error) {
+        console.log(error);
+        const errorMessage = "Error fetching teachers data. Please try again later.";
         setError(errorMessage); // Show error message
       } finally {
         setLoading(false);
@@ -47,7 +62,7 @@ const Teachers: React.FC = () => {
   }, []);
 
   // Handle page change in pagination
-  const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
+  const handleChangePage = ( newPage: number) => {
     setPage(newPage);
   };
 
@@ -139,12 +154,13 @@ const Teachers: React.FC = () => {
 
       {/* Pagination */}
       <TablePagination
+      
         rowsPerPageOptions={[5, 10, 25]}
-        component="div"
+        
         count={teachers.length}
         rowsPerPage={rowsPerPage}
         page={page}
-        onPageChange={handleChangePage}
+        onChangePage={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
         sx={{
           mt: 2,

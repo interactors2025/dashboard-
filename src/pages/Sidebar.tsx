@@ -1,8 +1,20 @@
 import React, { useState } from "react";
-import { Drawer, List, ListItem, ListItemText, IconButton, Button } from "@mui/material";
+import {
+  Drawer,
+  List,
+  ListItem,
+  ListItemText,
+  IconButton,
+  Button,
+} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useAuth } from "../context/AuthContext"; // Import the useAuth hook
-import { Link, useNavigate } from "react-router-dom"; // Import Link and useNavigate
+import { useNavigate } from "react-router-dom"; // Import Link and useNavigate
+
+interface MenuItem {
+  name: string;
+  route: string;
+}
 
 const Sidebar: React.FC = () => {
   const [open, setOpen] = useState(false);
@@ -13,13 +25,13 @@ const Sidebar: React.FC = () => {
     setOpen(!open);
   };
 
-  // Define the menu items and their corresponding routes
-  const menuItems = [
+  // Define the menu items and their corresponding routes with proper typing
+  const menuItems: MenuItem[] = [
     { name: "Dashboard", route: "/" },
     { name: "Attendance", route: "/attendance" },
     { name: "Events", route: "/events" },
-    { name: "participants", route: "/participants" },
-    { name: "teachers", route: "/teachers" },
+    { name: "Participants", route: "/participants" },
+    { name: "Teachers", route: "/teachers" },
   ];
 
   return (
@@ -29,7 +41,12 @@ const Sidebar: React.FC = () => {
         color="primary"
         aria-label="menu"
         onClick={toggleSidebar}
-        sx={{ display: { sm: "none" }, position: "absolute", top: 16, left: 16 }}
+        sx={{
+          display: { sm: "none" },
+          position: "absolute",
+          top: 16,
+          left: 16,
+        }}
       >
         <MenuIcon />
       </IconButton>
@@ -49,18 +66,25 @@ const Sidebar: React.FC = () => {
       >
         <List>
           {menuItems.map((item, index) => (
-            <ListItem button key={index} onClick={() => {
-              navigate(item.route)
-              setOpen(false);
-            }}>
-              <ListItemText color="primary" primary={item.name} />
+            <ListItem key={index}>
+              <Button
+                onClick={() => {
+                  navigate(item.route);
+                  setOpen(false);
+                }}
+              >
+                <ListItemText primary={item.name} />
+              </Button>
             </ListItem>
           ))}
         </List>
-        
+
         {/* Logout Button */}
         <Button
-          onClick={logout}
+          onClick={() => {
+            logout(); // Call logout
+            setOpen(false); // Close the sidebar after logout
+          }}
           sx={{
             position: "absolute",
             bottom: 16,
@@ -71,7 +95,7 @@ const Sidebar: React.FC = () => {
             backgroundColor: "red",
             color: "white",
             "&:hover": {
-              backgroundColor: "primary.main", 
+              backgroundColor: "primary.main", // Ensure primary.main works with your theme
             },
           }}
         >

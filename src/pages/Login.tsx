@@ -33,6 +33,7 @@ const Login = () => {
         setError('Invalid credentials');
       }
     } catch (error) {
+      console.error(error);
       setError('Error logging in. Please try again.');
     }
   };
