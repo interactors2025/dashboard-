@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { SelectChangeEvent } from '@mui/material';
+
 import {
   Container,
   Typography,
@@ -62,17 +62,16 @@ const Participants: React.FC = () => {
   }, []);
 
   // Handle page change in pagination
-  const handleChangePage = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, newPage: number) => {
+  const handleChangePage = ( newPage: number) => {
     setPage(newPage);
   };
 
   // Handle rows per page change in pagination
-  const handleChangeRowsPerPage = (
-    event: SelectChangeEvent<string> // Use string type for event.target.value
-  ) => {
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRowsPerPage(parseInt(event.target.value, 10)); // Parsing the value to a number
-    setPage(0);
+    setPage(0); // Reset page number to 0 when rows per page changes
   };
+
   // Open image dialog
   const handleOpenImageDialog = (imageUrl: string) => {
     setSelectedImage(imageUrl);
@@ -164,20 +163,19 @@ const Participants: React.FC = () => {
 
       {/* Pagination */}
       <TablePagination
-        rowsPerPageOptions={[5, 10, 25]}
-        component="div"
-        count={participants.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-        sx={{
-          mt: 2,
-          "& .MuiTablePagination-select": {
-            fontSize: "14px",
-          },
-        }}
-      />
+  rowsPerPageOptions={[5, 10, 25]}
+  count={participants.length}
+  rowsPerPage={rowsPerPage}
+  page={page}
+  onPageChange={(event, newPage) => handleChangePage(newPage)} // Handle page change
+  onRowsPerPageChange={handleChangeRowsPerPage}
+  sx={{
+    mt: 2,
+    "& .MuiTablePagination-select": {
+      fontSize: "14px",
+    },
+  }}
+/>
 
       {/* Image Dialog */}
       <Dialog open={openImageDialog} onClose={handleCloseImageDialog}>

@@ -158,7 +158,11 @@ const Teachers: React.FC = () => {
   count={teachers.length}
   rowsPerPage={rowsPerPage}
   page={page}
-  onPageChange={(event, newPage) => handleChangePage(newPage)} // Use onPageChange instead of onChangePage
+  onPageChange={(event, newPage) => {
+    if (event)
+      return
+    handleChangePage(newPage)
+  }} // Use onPageChange instead of onChangePage
   onRowsPerPageChange={handleChangeRowsPerPage}
   sx={{
     mt: 2,
