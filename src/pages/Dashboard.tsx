@@ -63,27 +63,27 @@ const Dashboard: React.FC = () => {
     const fetchData = async () => {
       try {
         const eventResponse = await axios.get(
-          "http://localhost:6789/api/v1/count"
+          "https://nci25.moderncollegegk.in/api/v1/count"
         );
         setEvents(eventResponse.data.payload.events);
         setStaffCount(eventResponse.data.payload.staffCount);
 
         // Calculate total amount and total participants
         const amountResponse = await axios.get(
-          "http://localhost:6789/api/v1/amount"
+          "https://nci25.moderncollegegk.in/api/v1/amount"
         );
 
         setTotalAmount(amountResponse.data.payload.totalAmount);
         const totalUserCount = await axios.get(
-          "http://localhost:6789/api/v1/user-count"
+          "https://nci25.moderncollegegk.in/api/v1/user-count"
         );
         setTotalParticipants(totalUserCount.data.payload.totalUserCount);
         // Fetch latest 10 users and staff
         const userResponse = await axios.get(
-          "http://localhost:6789/api/v1/latestUsers"
+          "https://nci25.moderncollegegk.in/api/v1/latestUsers"
         );
         const staffResponse = await axios.get(
-          "http://localhost:6789/api/v1/latestStaff"
+          "https://nci25.moderncollegegk.in/api/v1/latestStaff"
         );
 
         setUsers(userResponse.data.payload.users);
@@ -119,8 +119,8 @@ const Dashboard: React.FC = () => {
     try {
       const endpoint =
         searchType === "student"
-          ? "http://localhost:6789/api/v1/searchByMobileUser"
-          : "http://localhost:6789/api/v1/searchByMobileStaff";
+          ? "https://nci25.moderncollegegk.in/api/v1/searchByMobileUser"
+          : "https://nci25.moderncollegegk.in/api/v1/searchByMobileStaff";
       const response = await axios.get(`${endpoint}?mobile=${searchQuery}`);
 
       if (response.data.payload.user) {
