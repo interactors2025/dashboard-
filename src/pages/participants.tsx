@@ -167,7 +167,11 @@ const Participants: React.FC = () => {
   count={participants.length}
   rowsPerPage={rowsPerPage}
   page={page}
-  onPageChange={(event, newPage) => handleChangePage(newPage)} // Handle page change
+  onPageChange={(event, newPage) => {
+    if (event)
+      return
+    handleChangePage(newPage)
+  }} // Handle page change
   onRowsPerPageChange={handleChangeRowsPerPage}
   sx={{
     mt: 2,
