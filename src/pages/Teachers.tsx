@@ -154,22 +154,19 @@ const Teachers: React.FC = () => {
 
       {/* Pagination */}
       <TablePagination
-      
-        rowsPerPageOptions={[5, 10, 25]}
-        
-        count={teachers.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onChangePage={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-        sx={{
-          mt: 2,
-          "& .MuiTablePagination-select": {
-            fontSize: "14px",
-          },
-        }}
-      />
-
+  rowsPerPageOptions={[5, 10, 25]}
+  count={teachers.length}
+  rowsPerPage={rowsPerPage}
+  page={page}
+  onPageChange={(event, newPage) => handleChangePage(newPage)} // Use onPageChange instead of onChangePage
+  onRowsPerPageChange={handleChangeRowsPerPage}
+  sx={{
+    mt: 2,
+    "& .MuiTablePagination-select": {
+      fontSize: "14px",
+    },
+  }}
+/>
       {/* Image Dialog */}
       <Dialog open={openImageDialog} onClose={handleCloseImageDialog}>
         <DialogTitle>Teacher Image</DialogTitle>
